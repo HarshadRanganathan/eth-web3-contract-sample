@@ -23,7 +23,7 @@ You must first create an ethereum account to start deploying your contracts.
 
 ### Get Free Ether For Your Account
 
-Deploying your contracts and executing tansactions on it will cost you some ethers.
+Deploying your contracts and executing transactions on it will cost you some ethers.
 
 Hence, we need to first add some ethers for your account before proceeding to the next steps.
 
