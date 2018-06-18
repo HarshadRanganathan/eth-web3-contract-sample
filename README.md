@@ -48,21 +48,21 @@ In the `config.js` file update the following properties:
 npm install
 ```
 
-2. Compile the sample contract
+2. Compile any of the sample contracts inside the `contracts` folder
 ```
-npm run compile
+npm run compile -- --contract=Inbox
 ```
 This will generate the ABI (Application Binary Interface) and the bytecode in the `bin` directory.
 
-3. Run the tests
+3. Run the tests (optional)
 ```
 npm run test
 ```
 This will deploy and test the contract using Ganache TestRPC.
 
-4. Deploy the contract to Rinkeby test network
+4. Deploy the compiled contract to Rinkeby test network. If the contract expects arguments pass them using `--arguments` option
 ```
-npm run deploy
+npm run deploy -- --contract=Inbox --arguments=Hi
 ```
 
 Once the contract is deployed to Rinkeby test network, you can use the contract address shown in the console to explore the block using [Rinkeby EtherScan](https://rinkeby.etherscan.io/).

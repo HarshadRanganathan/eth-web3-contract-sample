@@ -1,29 +1,37 @@
+var argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const fs = require('fs');
 const config = require('./config');
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
+const assert = require('assert');
 
-const contractName = 'Inbox';
+assert.ok(argv.contract, 'Contract needs to be specified. Usage: npm run deploy -- --contract=Lottery');
+const contractName = argv.contract;
 const binPath = path.resolve(__dirname, 'bin', 'contracts');
 const mnemonic = config.mnemonic;
-const InboxMsg = 'Hi';
 
 const { interface, bytecode } = JSON.parse(fs.readFileSync(path.resolve(binPath, `${contractName}.json`), 'utf-8'));
 
 const provider = new HDWalletProvider(mnemonic, config.provider_uri);
 const web3 = new Web3(provider);
 
-let inbox;
+let contract;
 
 const deploy = async () => {
     const accounts = await web3.eth.getAccounts();
     console.log('Attempting to deploy contract from Account: ' + accounts[0]);
     
-    inbox = await new web3.eth.Contract(JSON.parse(interface))
-        .deploy({ data: '0x' + bytecode, arguments: [InboxMsg] })
+    if(argv.arguments) {
+        contract = await new web3.eth.Contract(JSON.parse(interface))
+        .deploy({ data: '0x' + bytecode, arguments: [argv.arguments] })
         .send({ from: accounts[0], gas: 1000000 });
-    console.log('Contract deployed to address: ' + inbox.options.address);
+    } else {
+        contract = await new web3.eth.Contract(JSON.parse(interface))
+        .deploy({ data: '0x' + bytecode })
+        .send({ from: accounts[0], gas: 1000000 });
+    }
+    console.log('Contract deployed to address: ' + contract.options.address);
 };
 
 deploy();

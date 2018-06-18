@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "ganache-cli": "^6.1.0",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^5.1.1",
     "solc": "^0.4.24",

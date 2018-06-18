@@ -1,14 +1,17 @@
+var argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const solc = require('solc');
+const assert = require('assert');
 
-const contractName = 'Inbox';
-const contractPath = path.resolve(__dirname, 'contracts', 'Inbox.sol');
+assert.ok(argv.contract, 'Contract needs to be specified. Usage: npm run compile -- --contract=Lottery');
+const contractName = argv.contract;
+const contractPath = path.resolve(__dirname, 'contracts', `${contractName}.sol`);
 const binPath = path.resolve(__dirname, 'bin', 'contracts');
 
 const source = fs.readFileSync(contractPath, 'utf-8');
-const compiledCode = solc.compile(source, 1).contracts[':Inbox'];
+const compiledCode = solc.compile(source, 1).contracts[`:${contractName}`];
 delete compiledCode['assembly'];
 
 mkdirp.sync(binPath);
