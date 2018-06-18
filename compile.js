@@ -5,7 +5,7 @@ const mkdirp = require('mkdirp');
 const solc = require('solc');
 const assert = require('assert');
 
-assert.ok(argv.contract, 'Contract needs to be specified. Usage: npm run compile -- --contract=Lottery');
+assert(argv.contract, 'Contract needs to be specified. Usage: npm run compile -- --contract=Lottery');
 const contractName = argv.contract;
 const contractPath = path.resolve(__dirname, 'contracts', `${contractName}.sol`);
 const binPath = path.resolve(__dirname, 'bin', 'contracts');

@@ -6,7 +6,7 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
 const assert = require('assert');
 
-assert.ok(argv.contract, 'Contract needs to be specified. Usage: npm run deploy -- --contract=Lottery');
+assert(argv.contract, 'Contract needs to be specified. Usage: npm run deploy -- --contract=Lottery');
 const contractName = argv.contract;
 const binPath = path.resolve(__dirname, 'bin', 'contracts');
 const mnemonic = config.mnemonic;
