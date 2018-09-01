@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "node compile.js",
-    "deploy": "node deploy.js",
+    "compile-contract": "node compile.js",
+    "deploy-contract": "node deploy.js",
+    "start-app": "react-scripts start",
     "test": "mocha"
   },
   "author": "",
@@ -15,6 +16,9 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^5.1.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "^1.1.4",
     "solc": "^0.4.24",
     "truffle-hdwallet-provider": "0.0.5",
     "web3": "^1.0.0-beta.26"
