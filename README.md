@@ -9,6 +9,9 @@ Packages utilized:
 - [Solc](https://www.npmjs.com/package/solc) - Solidity Compiler
 - [Web3](https://web3js.readthedocs.io/en/1.0/index.html) - Ethereum JavaScript API
 - [Truffle Wallet Provider](https://github.com/trufflesuite/truffle-hdwallet-provider) - HD Wallet-enabled Web3 provider 
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+
+![LOTTERY-CONTRACT-ETHEREUM](https://i.imgur.com/yTlc0yE.gif)
 
 ## Pre-Requisites To Deploying Contracts To Rinkeby Network
 
@@ -72,3 +75,15 @@ Alternatively, you can also deploy and interact with your contract using [Remix]
 Write your own contract and choose `Injected Web3` in the `Run` tab. 
 
 This will use your metamask account to deploy contracts and interact with them.
+
+## Lottery Contract
+
+Interact with the lottery contract deployed in Rinkeby network at address `0x77EFc56DFf33333Fe864e798B847B827d9691288`.
+
+Run the React web app using below command
+
+```
+npm run start-app
+```
+
+Open `http://localhost:3000/` in the browser where you have installed the metamask extension and then enter into the lottery!
