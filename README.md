@@ -87,3 +87,5 @@ npm run start-app
 ```
 
 Open `http://localhost:3000/` in the browser where you have installed the metamask extension and then enter into the lottery!
+
+Note: Metamask will ask for your approval to allow React App to connect to your account. You need to approve the same so that we can send transactions using your account.

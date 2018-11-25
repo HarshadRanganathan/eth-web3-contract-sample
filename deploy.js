@@ -9,29 +9,33 @@ const assert = require('assert');
 assert(argv.contract, 'Contract needs to be specified. Usage: npm run deploy -- --contract=Lottery');
 const contractName = argv.contract;
 const binPath = path.resolve(__dirname, 'bin', 'contracts');
-const mnemonic = config.mnemonic;
 
 const { interface, bytecode } = JSON.parse(fs.readFileSync(path.resolve(binPath, `${contractName}.json`), 'utf-8'));
 
-const provider = new HDWalletProvider(mnemonic, config.provider_uri);
+const provider = new HDWalletProvider(config.mnemonic, config.provider_uri);
 const web3 = new Web3(provider);
 
 let contract;
 
 const deploy = async () => {
-    const accounts = await web3.eth.getAccounts();
-    console.log('Attempting to deploy contract from Account: ' + accounts[0]);
+    try {
+        const accounts = await web3.eth.getAccounts();
+        console.log('Attempting to deploy contract from Account: ' + accounts[0]);
     
-    if(argv.arguments) {
-        contract = await new web3.eth.Contract(JSON.parse(interface))
-        .deploy({ data: '0x' + bytecode, arguments: [argv.arguments] })
-        .send({ from: accounts[0], gas: 1000000 });
-    } else {
-        contract = await new web3.eth.Contract(JSON.parse(interface))
-        .deploy({ data: '0x' + bytecode })
-        .send({ from: accounts[0], gas: 1000000 });
-    }
-    console.log('Contract deployed to address: ' + contract.options.address);
+        if(argv.arguments) {
+            contract = await new web3.eth.Contract(JSON.parse(interface))
+            .deploy({ data: '0x' + bytecode, arguments: [argv.arguments] })
+            .send({ from: accounts[0], gas: 1000000 });
+        } else {
+            contract = await new web3.eth.Contract(JSON.parse(interface))
+            .deploy({ data: '0x' + bytecode })
+            .send({ from: accounts[0], gas: 1000000 });
+        }
+        console.log('Contract deployed to address: ' + contract.options.address);
+    } 
+    catch(e) {
+        console.log(e);
+    }    
 };
 
 deploy();

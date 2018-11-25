@@ -14,6 +14,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
+    await window.ethereum.enable();
     const manager = await lottery.methods.manager().call();
     const players = await lottery.methods.getPlayers().call();
     const balance = await web3.eth.getBalance(lottery.options.address);
