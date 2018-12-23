@@ -17,10 +17,10 @@ beforeEach(async () => {
     accounts = await web3.eth.getAccounts();
 
     // Create the contract instance
-    const { interface, bytecode } = JSON.parse(fs.readFileSync(path.resolve(binPath, `${contractName}.json`), 'utf-8'));
-    
-    inbox = await new web3.eth.Contract(JSON.parse(interface))
-        .deploy({ data: bytecode, arguments: [InboxMsg] })
+    const { abi, evm: { bytecode: { object } } } = JSON.parse(fs.readFileSync(path.resolve(binPath, `${contractName}.json`), 'utf-8'));
+
+    inbox = await new web3.eth.Contract(abi)
+        .deploy({ data: object, arguments: [InboxMsg] })
         .send({ from: accounts[0], gas: 1000000 });
 });
 

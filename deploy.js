@@ -10,7 +10,7 @@ assert(argv.contract, 'Contract needs to be specified. Usage: npm run deploy -- 
 const contractName = argv.contract;
 const binPath = path.resolve(__dirname, 'bin', 'contracts');
 
-const { interface, bytecode } = JSON.parse(fs.readFileSync(path.resolve(binPath, `${contractName}.json`), 'utf-8'));
+const { abi, evm: { bytecode: { object } } } = JSON.parse(fs.readFileSync(path.resolve(binPath, `${contractName}.json`), 'utf-8'));
 
 const provider = new HDWalletProvider(config.mnemonic, config.provider_uri);
 const web3 = new Web3(provider);
@@ -23,12 +23,12 @@ const deploy = async () => {
         console.log('Attempting to deploy contract from Account: ' + accounts[0]);
     
         if(argv.arguments) {
-            contract = await new web3.eth.Contract(JSON.parse(interface))
-            .deploy({ data: '0x' + bytecode, arguments: [argv.arguments] })
+            contract = await new web3.eth.Contract(abi)
+            .deploy({ data: '0x' + object, arguments: [argv.arguments] })
             .send({ from: accounts[0], gas: 1000000 });
         } else {
-            contract = await new web3.eth.Contract(JSON.parse(interface))
-            .deploy({ data: '0x' + bytecode })
+            contract = await new web3.eth.Contract(abi)
+            .deploy({ data: '0x' + object })
             .send({ from: accounts[0], gas: 1000000 });
         }
         console.log('Contract deployed to address: ' + contract.options.address);
