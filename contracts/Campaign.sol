@@ -43,6 +43,11 @@ contract Campaign {
         requests.push(newRequest);
     }
 
+    function getRequest(uint index) public view returns(string memory, uint, address, bool, uint) {
+        Request memory request = requests[index];
+        return (request.description, request.value, request.recipient, request.complete, request.approvalCount);
+    }
+
     function approveRequest(uint index) public {
         Request storage request = requests[index];
 
