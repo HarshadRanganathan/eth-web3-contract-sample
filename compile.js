@@ -11,6 +11,7 @@ const contractPath = path.resolve(__dirname, 'contracts', `${contractName}.sol`)
 const binPath = path.resolve(__dirname, 'bin', 'contracts');
 
 const source = fs.readFileSync(contractPath, 'utf-8').replace(/\r\n/g, "");
+mkdirp.sync(binPath);
 
 var compilerInput = `{
     "language": "Solidity",
@@ -28,11 +29,11 @@ var compilerInput = `{
     }
 }`
 
-const compiledContract = JSON.parse(solc.compile(compilerInput)).contracts[`${contractName}.sol`][`${contractName}`];
+const compiledContracts = JSON.parse(solc.compile(compilerInput)).contracts[`${contractName}.sol`];
 
-mkdirp.sync(binPath);
-
-// write the contract's interface definition and bytecode 
-fs.writeFileSync(path.resolve(binPath, `${contractName}.json`), JSON.stringify(compiledContract, null, 2), 'utf-8');
-fs.writeFileSync(path.resolve(binPath, `${contractName}.abi`), JSON.stringify(compiledContract.abi), 'utf-8');
-fs.writeFileSync(path.resolve(binPath, `${contractName}.bin`), compiledContract.evm.bytecode.object, 'utf-8');
+Object.keys(compiledContracts).forEach(contract => {
+    // write the contract's interface definition and bytecode 
+    fs.writeFileSync(path.resolve(binPath, `${contract}.json`), JSON.stringify(compiledContracts[contract], null, 2), 'utf-8');
+    fs.writeFileSync(path.resolve(binPath, `${contract}.abi`), JSON.stringify(compiledContracts[contract].abi), 'utf-8');
+    fs.writeFileSync(path.resolve(binPath, `${contract}.bin`), compiledContracts[contract].evm.bytecode.object, 'utf-8');
+});
