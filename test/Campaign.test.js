@@ -19,7 +19,7 @@ beforeEach(async () => {
     const { abi, evm: { bytecode: { object } } } = JSON.parse(fs.readFileSync(path.resolve(binPath, `${contractName}.json`), 'utf-8'));
     
     campaign = await new web3.eth.Contract(abi)
-        .deploy({ data: object, arguments: [campaignMinContribution] })
+        .deploy({ data: object, arguments: [campaignMinContribution, accounts[0]] })
         .send({ from: accounts[0], gas: 2000000 });
 });
 
