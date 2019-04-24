@@ -25,11 +25,11 @@ const deploy = async () => {
         if(argv.arguments) {
             contract = await new web3.eth.Contract(abi)
             .deploy({ data: '0x' + object, arguments: [argv.arguments] })
-            .send({ from: accounts[0], gas: 1000000 });
+            .send({ from: accounts[0], gas: 3000000 });
         } else {
             contract = await new web3.eth.Contract(abi)
             .deploy({ data: '0x' + object })
-            .send({ from: accounts[0], gas: 1000000 });
+            .send({ from: accounts[0], gas: 3000000 });
         }
         console.log('Contract deployed to address: ' + contract.options.address);
     } 
