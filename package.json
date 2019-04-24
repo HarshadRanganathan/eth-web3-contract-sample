@@ -1,5 +1,5 @@
 {
-  "name": "ethcontracts",
+  "name": "ethereum-web3-contracts",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "start-app": "react-scripts start",
     "test": "mocha"
   },
-  "author": "",
+  "author": "Harshad Ranganathan",
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
